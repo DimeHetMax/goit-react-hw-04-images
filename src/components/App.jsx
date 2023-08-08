@@ -9,7 +9,7 @@ import {fetchImg} from "components/API"
 export function App (){
   const [images, setImages]=useState([])
   const [modalImage, setModalImage]=useState({})
-  // const [totalHit, setTotalHit]=useState(null)
+  const [totalHit, setTotalHit]=useState(null)
   const [error, setError]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
   const [showModal, setShowModal]=useState(false)
@@ -19,6 +19,8 @@ export function App (){
 
   const handleQuery = (value) =>{
     setQuery(value)
+    setPage(1)
+    setImages([])
   }
   const onImageClick = (image) =>{
     setModalImage(image)
@@ -34,12 +36,9 @@ export function App (){
       if(!query){
         return
       }
-     
       setIsLoading(true);
-
       fetchImg(query, page)
         .then(response => {
-          console.log(response)
           if (response.request.status === 200) {
             return response;
           }
@@ -47,7 +46,7 @@ export function App (){
         })
         .then(({ data }) => {   
           setImages(prevImages => [...prevImages, ...data.hits]);
-          // setTotalHit(data.totalHits);
+          setTotalHit(data.totalHits);
         })
         .catch(error => setError(error))
         .finally(() => {
@@ -55,6 +54,14 @@ export function App (){
           setLoadMore(true);
         });
     }, [query, page]);
+
+    useEffect(() => {
+      if (images.length >= totalHit) {
+        setLoadMore(false);
+      } else {
+        setLoadMore(true);
+      }
+    }, [images.length, totalHit]);
     
   return (
     <div>

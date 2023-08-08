@@ -11,7 +11,7 @@ export function ImageGallery ({images, onImage}){
             <ul className={css.gallery} onClick={getImage}>
                 {images.map(({id,webformatURL,largeImageURL,tags}, index)=>{
                     return(
-                    <ImageGalleryItem key={index}keyId={id} url={webformatURL} large={largeImageURL} alt={tags}/>
+                    <ImageGalleryItem key={id} url={webformatURL} large={largeImageURL} alt={tags}/>
                     )
                 })}
             </ul>   
