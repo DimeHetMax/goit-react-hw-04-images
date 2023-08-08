@@ -9,7 +9,7 @@ import {fetchImg} from "components/API"
 export function App (){
   const [images, setImages]=useState([])
   const [modalImage, setModalImage]=useState({})
-  const [totalHit, setTotalHit]=useState(null)
+  // const [totalHit, setTotalHit]=useState(null)
   const [error, setError]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
   const [showModal, setShowModal]=useState(false)
@@ -47,14 +47,13 @@ export function App (){
         })
         .then(({ data }) => {   
           setImages(prevImages => [...prevImages, ...data.hits]);
-          setTotalHit(data.totalHits);
+          // setTotalHit(data.totalHits);
         })
         .catch(error => setError(error))
         .finally(() => {
           setIsLoading(false);
           setLoadMore(true);
         });
-        console.log(images)
     }, [query, page]);
     
   return (
