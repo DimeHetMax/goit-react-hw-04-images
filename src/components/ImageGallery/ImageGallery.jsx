@@ -9,9 +9,9 @@ export function ImageGallery ({images, onImage}){
     return(
         <div>
             <ul className={css.gallery} onClick={getImage}>
-                {images.map(({id,webformatURL,largeImageURL,tags})=>{
+                {images.map(({id,webformatURL,largeImageURL,tags}, index)=>{
                     return(
-                    <ImageGalleryItem key={id} keyId={id} url={webformatURL} large={largeImageURL} alt={tags}/>
+                    <ImageGalleryItem key={index}keyId={id} url={webformatURL} large={largeImageURL} alt={tags}/>
                     )
                 })}
             </ul>   
